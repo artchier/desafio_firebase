@@ -50,7 +50,7 @@ class GameAdapter(
     }*/
 
     override fun onBindViewHolder(holder: ComicViewHolder, position: Int) {
-        val comics = listGames[position]
+        val games = listGames[position]
         var number: String? = null
         /*try {
             val hashCoordinates: IntArray = findHash(comics.title)
