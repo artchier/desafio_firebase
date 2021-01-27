@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/splashloginFragment">
+
+    <fragment
+        android:id="@+id/splashloginFragment"
+        android:name="br.com.digitalhouse.desafiofirebase.ui.SplashLoginFragment"
+        tools:layout="@layout/fragment_splashlogin">
+        <action
+            android:id="@+id/action_splashloginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/wait"
+            app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/action_splashloginFragment_to_gameFragment"
+            app:destination="@id/navigation2"
+            app:enterAnim="@anim/slide_left_in"
+            app:exitAnim="@anim/slide_right_in"
+            app:popEnterAnim="@anim/slide_left_out"
+            app:popExitAnim="@anim/slide_right_out" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="br.com.digitalhouse.desafiofirebase.ui.RegisterFragment"
+        android:label="@string/register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/action_registerFragment_to_gameFragment"
+            app:destination="@id/navigation2"
+            app:enterAnim="@anim/slide_left_in"
+            app:exitAnim="@anim/slide_right_in"
+            app:popEnterAnim="@anim/slide_left_out"
+            app:popExitAnim="@anim/slide_right_out"
+            app:popUpTo="@id/splashloginFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <navigation
+        android:id="@+id/navigation2"
+        app:startDestination="@id/gameFragment">
+        <fragment
+            android:id="@+id/gameFragment"
+            android:name="br.com.digitalhouse.desafiofirebase.ui.GameFragment"
+            tools:layout="@layout/fragment_game">
+            <action
+                android:id="@+id/action_gameFragment_to_detailFragment"
+                app:destination="@id/detailFragment"
+                app:enterAnim="@anim/slide_up"
+                app:exitAnim="@anim/wait"
+                app:popExitAnim="@anim/slide_down" />
+        </fragment>
+        <fragment
+            android:id="@+id/detailFragment"
+            android:name="br.com.digitalhouse.desafiofirebase.ui.DetailFragment"
+            tools:layout="@layout/fragment_detail">
+            <action
+                android:id="@+id/action_detailFragment_to_editFragment"
+                app:destination="@id/editFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/editFragment"
+            android:name="br.com.digitalhouse.desafiofirebase.ui.EditFragment"
+            tools:layout="@layout/fragment_edit" />
+    </navigation>
+</navigation>

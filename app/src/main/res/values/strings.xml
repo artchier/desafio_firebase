@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">Desafio Firebase</string>
+    <string name="e_mail">E-mail</string>
+    <string name="password">Password</string>
+    <string name="remember">Remember</string>
+    <string name="log_in">LOG IN</string>
+    <string name="create_account">Create account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="register">Register</string>
+    <string name="name">Name</string>
+    <string name="save">SAVE</string>
+    <string name="game_cover">Game Cover</string>
+    <string name="cadastrar_games_novos">Cadastrar games novos</string>
+    <string name="microphone">microphone</string>
+    <string name="repeat_password">Repeat Password</string>
+    <string name="floating_action_button_editar_game">Floating Action Button editar game</string>
 </resources>
