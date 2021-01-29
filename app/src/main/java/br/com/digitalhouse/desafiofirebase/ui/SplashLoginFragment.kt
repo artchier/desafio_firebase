@@ -28,7 +28,7 @@ class SplashLoginFragment : Fragment() {
             findNavController().navigate(R.id.action_splashloginFragment_to_gameFragment)
         }
         binding.btCreateAccount.setOnClickListener {
-            findNavController().navigate(R.id.action_splashloginFragment_to_gameFragment)
+            findNavController().navigate(R.id.action_splashloginFragment_to_registerFragment)
         }
         return view
     }

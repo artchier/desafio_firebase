@@ -7,7 +7,7 @@
 
     <ImageView
         android:layout_width="30dp"
-        android:layout_height="25dp"
+        android:layout_height="30dp"
         android:background="@drawable/camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

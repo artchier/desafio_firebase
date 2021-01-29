@@ -41,19 +41,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:inputType="textPersonName"
+                android:inputType="textCapSentences"
                 android:maxLines="1"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilEmail"
+            android:id="@+id/tilCreated"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:hint="@string/e_mail"
+            android:hint="@string/created_at"
             app:boxBackgroundMode="filled"
             app:hintTextColor="@color/green_statusbar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -61,51 +61,67 @@
             app:layout_constraintTop_toBottomOf="@id/tilName">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/e_mail"
+                android:id="@+id/created_at"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
-                android:inputType="textEmailAddress"
+                android:inputType="number"
                 android:maxLines="1"
                 android:paddingStart="0dp"
                 android:paddingEnd="0dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        <ScrollView
+            android:id="@+id/svDescription"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password"
-            android:paddingTop="10dp"
-            app:boxBackgroundMode="filled"
-            app:hintTextColor="@color/green_statusbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilEmail">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@id/btSaveGame"
+            app:layout_constraintTop_toBottomOf="@id/tilCreated">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/password"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:paddingStart="0dp"
-                android:paddingEnd="0dp" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilDescription"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description"
+                    android:paddingTop="10dp"
+                    app:boxBackgroundMode="filled"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="890"
+                    app:hintTextColor="@color/green_statusbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/description"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:inputType="textCapSentences|textImeMultiLine"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
         <Button
-            android:id="@+id/btSave"
+            android:id="@+id/btSaveGame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
             android:layout_marginBottom="5dp"
-            android:text="@string/save"
+            android:text="@string/save_game"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tilPassword" />
+            app:layout_constraintTop_toBottomOf="@id/svDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline

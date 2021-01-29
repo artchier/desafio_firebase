@@ -28,7 +28,7 @@ class RegisterFragment : Fragment() {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        binding.btSave.setOnClickListener {
+        binding.btCreateAccount.setOnClickListener {
             findNavController().navigate(R.id.action_registerFragment_to_gameFragment)
         }
 

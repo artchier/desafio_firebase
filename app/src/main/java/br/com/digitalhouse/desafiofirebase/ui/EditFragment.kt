@@ -27,7 +27,7 @@ class EditFragment : Fragment() {
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        binding.btSave.setOnClickListener {
+        binding.btSaveGame.setOnClickListener {
             findNavController().popBackStack()
         }
 

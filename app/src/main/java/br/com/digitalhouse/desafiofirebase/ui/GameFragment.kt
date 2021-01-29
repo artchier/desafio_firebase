@@ -3,6 +3,7 @@ package br.com.digitalhouse.desafiofirebase.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -12,11 +13,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.digitalhouse.desafiofirebase.R
 import br.com.digitalhouse.desafiofirebase.databinding.FragmentGameBinding
+import br.com.digitalhouse.desafiofirebase.model.Game
 import br.com.digitalhouse.desafiofirebase.viewmodel.MyViewModel
 
 class GameFragment : Fragment() {
     private val myViewModel: MyViewModel by navGraphViewModels(R.id.navigation2)
     private lateinit var adapter: GameAdapter
+    private var listGames = arrayListOf<Game>()
     private lateinit var gridLayoutManager: GridLayoutManager
     private var offset = 0
     private var _binding: FragmentGameBinding? = null
@@ -32,6 +35,14 @@ class GameFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        if (listGames.size == 0)
+            binding.pbGame.visibility = GONE
+
+        binding.fabAddGame.setOnClickListener {
+            findNavController().navigate(R.id.action_gameFragment_to_editFragment)
+        }
+
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -44,7 +55,7 @@ class GameFragment : Fragment() {
             binding.rvGame.scrollTo(it[0], it[1])
         }
 
-        /*adapter = GameAdapter(this, myViewModel, view, listGames)*/
+        adapter = GameAdapter(this, myViewModel, binding, listGames)
 
         gridLayoutManager = GridLayoutManager(view.context, 2)
         binding.rvGame.adapter = adapter

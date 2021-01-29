@@ -14,4 +14,7 @@
     <string name="microphone">microphone</string>
     <string name="repeat_password">Repeat Password</string>
     <string name="floating_action_button_editar_game">Floating Action Button editar game</string>
+    <string name="created_at">Created at</string>
+    <string name="description">Description</string>
+    <string name="save_game">Save game</string>
 </resources>
