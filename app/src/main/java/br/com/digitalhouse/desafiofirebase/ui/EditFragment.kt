@@ -2,6 +2,7 @@ package br.com.digitalhouse.desafiofirebase.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
@@ -29,6 +30,14 @@ class EditFragment : Fragment() {
 
         binding.btSaveGame.setOnClickListener {
             findNavController().popBackStack()
+        }
+
+        binding.description.setOnTouchListener { view, event ->
+            view.parent.requestDisallowInterceptTouchEvent(true)
+            if ((event.action and MotionEvent.ACTION_MASK) == MotionEvent.ACTION_UP) {
+                view.parent.requestDisallowInterceptTouchEvent(false)
+            }
+            return@setOnTouchListener false
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(

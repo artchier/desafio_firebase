@@ -71,44 +71,35 @@
                 android:paddingEnd="0dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ScrollView
-            android:id="@+id/svDescription"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilDescription"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/description"
+            android:paddingTop="10dp"
+            app:boxBackgroundMode="filled"
+            app:counterEnabled="true"
+            app:counterMaxLength="890"
+            app:hintTextColor="@color/green_statusbar"
             app:layout_constraintBottom_toTopOf="@id/btSaveGame"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilCreated">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/description"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tilDescription"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/description"
-                    android:paddingTop="10dp"
-                    app:boxBackgroundMode="filled"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="890"
-                    app:hintTextColor="@color/green_statusbar"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/description"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/transparent"
-                        android:inputType="textCapSentences|textImeMultiLine"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:inputType="textCapSentences|textImeMultiLine|textMultiLine"
+                android:maxLines="2"
+                android:overScrollMode="always"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:scrollbarStyle="insideInset"
+                android:scrollbars="vertical" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btSaveGame"
@@ -121,7 +112,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/svDescription" />
+            app:layout_constraintTop_toBottomOf="@id/tilDescription" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.Guideline
