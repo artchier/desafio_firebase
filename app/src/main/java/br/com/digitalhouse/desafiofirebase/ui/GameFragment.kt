@@ -7,6 +7,7 @@ import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -32,12 +33,22 @@ class GameFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        myViewModel.connectDBTask()
         // Inflate the layout for this fragment
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        if (listGames.size == 0)
-            binding.pbGame.visibility = GONE
+        myViewModel.getGamesTask()
+
+        myViewModel.allGames.observe(viewLifecycleOwner) {
+            listGames.addAll(it)
+
+            adapter = GameAdapter(this, myViewModel, binding, listGames)
+
+            gridLayoutManager = GridLayoutManager(view.context, 2)
+            binding.rvGame.adapter = adapter
+            binding.rvGame.layoutManager = gridLayoutManager
+        }
 
         binding.fabAddGame.setOnClickListener {
             findNavController().navigate(R.id.action_gameFragment_to_editFragment)
@@ -54,12 +65,6 @@ class GameFragment : Fragment() {
         myViewModel._scrollCoordinates.observe(viewLifecycleOwner) {
             binding.rvGame.scrollTo(it[0], it[1])
         }
-
-        adapter = GameAdapter(this, myViewModel, binding, listGames)
-
-        gridLayoutManager = GridLayoutManager(view.context, 2)
-        binding.rvGame.adapter = adapter
-        binding.rvGame.layoutManager = gridLayoutManager
 
         setScroller()
 

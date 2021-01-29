@@ -16,7 +16,7 @@
         android:background="@color/white">
 
         <ImageView
-            android:id="@+id/ivCover"
+            android:id="@+id/ivCoverItem"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/game_cover"
@@ -33,6 +33,7 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
+                android:id="@+id/tvTitleItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -44,6 +45,7 @@
                 android:textColor="@color/title_color" />
 
             <TextView
+                android:id="@+id/tvYearItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"

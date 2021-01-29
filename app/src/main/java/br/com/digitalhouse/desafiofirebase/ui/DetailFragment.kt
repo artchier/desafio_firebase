@@ -45,6 +45,13 @@ class DetailFragment : Fragment() {
                 }
             })
 
+        myViewModel.allGames.observe(viewLifecycleOwner){
+            binding.ivDetailCover.setImageResource(R.drawable.splash_firebase)
+            binding.tvGameTitle.text = it[0].title
+            binding.tvDetailYear.text = it[0].year
+            binding.tvDescription.text = it[0].description
+        }
+
         /*myViewModel._parametersComic.observe(viewLifecycleOwner) {
             view.tvDetail.text = it[0]
             view.tvDescription.text = it[1]

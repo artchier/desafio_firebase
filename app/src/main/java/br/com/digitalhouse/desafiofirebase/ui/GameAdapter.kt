@@ -6,14 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.digitalhouse.desafiofirebase.R
 import br.com.digitalhouse.desafiofirebase.databinding.FragmentGameBinding
 import br.com.digitalhouse.desafiofirebase.model.Game
 import br.com.digitalhouse.desafiofirebase.viewmodel.MyViewModel
-import com.bumptech.glide.Glide
-import java.text.NumberFormat
-import java.text.SimpleDateFormat
 import java.util.*
 
 class GameAdapter(
@@ -25,16 +23,17 @@ class GameAdapter(
 
     RecyclerView.Adapter<GameAdapter.ComicViewHolder>() {
     class ComicViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val ivGameCover: ImageView = view.findViewById(R.id.ivGameCover)
-        val ivGameTitle: TextView = view.findViewById(R.id.tvGameTitle)
-        val tvDetail: TextView = view.findViewById(R.id.tvDetail)
-        val tvYear: TextView = view.findViewById(R.id.tvYear)
-        val tvDescription: TextView = view.findViewById(R.id.tvDescription)
+        val ivCoverItem: ImageView = view.findViewById(R.id.ivCoverItem)
+        val tvTitleItem: TextView = view.findViewById(R.id.tvTitleItem)
+
+        //val tvDetail: TextView = view.findViewById(R.id.tvDetail)
+        val tvYearItem: TextView = view.findViewById(R.id.tvYearItem)
+        //val tvDescription: TextView = view.findViewById(R.id.tvDescription)
     }
 
-    private lateinit var title: String
+    /*private lateinit var title: String
     private lateinit var description: String
-    private lateinit var coverGame: String
+    private lateinit var coverGame: String*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.game_item, parent, false)
@@ -51,7 +50,13 @@ class GameAdapter(
 
     override fun onBindViewHolder(holder: ComicViewHolder, position: Int) {
         val games = listGames[position]
-        var number: String? = null
+
+        holder.ivCoverItem.setImageResource(R.drawable.splash_firebase)
+        holder.tvYearItem.text = games.year
+
+        holder.itemView.setOnClickListener {
+            context.findNavController().navigate(R.id.action_gameFragment_to_detailFragment)
+        }
         /*try {
             val hashCoordinates: IntArray = findHash(comics.title)
             number = StringBuilder(comics.title).substring(hashCoordinates[0], hashCoordinates[1])
@@ -93,38 +98,12 @@ class GameAdapter(
                 )
             )*/
 
-            myViewModel.updateScrollCoordinates(
-                intArrayOf(
-                    inflate.rvGame.scrollX,
-                    inflate.rvGame.scrollY
-                )
+        myViewModel.updateScrollCoordinates(
+            intArrayOf(
+                inflate.rvGame.scrollX,
+                inflate.rvGame.scrollY
             )
-            findNavController(context).navigate(R.id.action_gameFragment_to_detailFragment)
+        )
         //}
-    }
-
-    private fun findHash(string: String): IntArray {
-        var hashStart = 0
-        var hashEnd = 0
-
-        for (index in 0..string.length) {
-            if (string[index] == '#') {
-                hashStart = index
-                break
-            }
-        }
-
-        for (index in hashStart until string.length) {
-            if (string[index] == ' ') {
-                hashEnd = index
-                break
-            }
-            if (index + 1 == string.length) {
-                hashEnd = string.length
-                break
-            }
-        }
-
-        return intArrayOf(hashStart, hashEnd)
     }
 }

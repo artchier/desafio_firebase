@@ -26,7 +26,7 @@
                 android:layout_weight="0.15">
 
                 <ImageView
-                    android:id="@+id/ivGameCover"
+                    android:id="@+id/ivDetailCover"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/splash_firebase"
@@ -45,7 +45,7 @@
                     android:text="God Of War"
                     android:textColor="@color/white"
                     android:textSize="15sp"
-                    app:layout_constraintBottom_toBottomOf="@id/ivGameCover"
+                    app:layout_constraintBottom_toBottomOf="@id/ivDetailCover"
                     app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -60,7 +60,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/tvDetail"
+                        android:id="@+id/tvDetailTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
@@ -73,7 +73,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tvYear"
+                        android:id="@+id/tvDetailYear"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="15dp"
@@ -82,7 +82,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/year_color"
                         android:textSize="12sp"
-                        app:layout_constraintTop_toBottomOf="@id/tvDetail" />
+                        app:layout_constraintTop_toBottomOf="@id/tvDetailTitle" />
 
                     <TextView
                         android:id="@+id/tvDescription"
@@ -98,7 +98,7 @@ A produção do primeiro jogo foi baseada na ideia original que Ed Boon e John T
                         android:textSize="13sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvDetail" />
+                        app:layout_constraintTop_toBottomOf="@id/tvDetailTitle" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
         </LinearLayout>
