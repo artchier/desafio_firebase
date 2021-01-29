@@ -1,6 +1,7 @@
 package br.com.digitalhouse.desafiofirebase.ui
 
 import android.os.Bundle
+import android.text.method.MovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,14 @@ class DetailFragment : Fragment() {
             findNavController(),
             AppBarConfiguration(findNavController().graph)
         )
-        binding.tbDetail.navigationIcon = ResourcesCompat.getDrawable(resources, R.drawable.back, null)
+        binding.tbDetail.navigationIcon =
+            ResourcesCompat.getDrawable(resources, R.drawable.back, null)
+
+        binding.ivDetailCover.setImageResource(R.drawable.splash_firebase)
+        binding.tvGameTitle.text = arguments?.getString("title")
+        binding.tvDetailTitle.text = arguments?.getString("title")
+        binding.tvDetailYear.text = "Lançamento: ${arguments?.getString("year")}"
+        binding.tvDetailDescription.text = arguments?.getString("description")
 
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -44,24 +52,6 @@ class DetailFragment : Fragment() {
                     findNavController().popBackStack()
                 }
             })
-
-        myViewModel.allGames.observe(viewLifecycleOwner){
-            binding.ivDetailCover.setImageResource(R.drawable.splash_firebase)
-            binding.tvGameTitle.text = it[0].title
-            binding.tvDetailYear.text = it[0].year
-            binding.tvDescription.text = it[0].description
-        }
-
-        /*myViewModel._parametersComic.observe(viewLifecycleOwner) {
-            view.tvDetail.text = it[0]
-            view.tvDescription.text = it[1]
-            view.tvPublishedValue.text = if (it[2] == "0") "No date available" else it[2]
-            view.tvPriceValue.text = if (it[3] == "0") "" else it[3]
-            view.tvPagesValue.text = it[4]
-            Glide.with(this).load(it[5]).into(view.ivThumbnail)
-            if (it[6] != "") Glide.with(this).load(it[6]).into(view.ivPromoArt)
-        }*/
-
         return view
     }
 

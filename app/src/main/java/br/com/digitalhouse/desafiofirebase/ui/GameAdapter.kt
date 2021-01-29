@@ -2,10 +2,11 @@ package br.com.digitalhouse.desafiofirebase.ui
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.digitalhouse.desafiofirebase.R
@@ -17,23 +18,17 @@ import java.util.*
 class GameAdapter(
     private val context: GameFragment,
     private val myViewModel: MyViewModel,
-    private val inflate: FragmentGameBinding,
-    private var listGames: ArrayList<Game>
+    private val inflate: FragmentGameBinding
 ) :
 
     RecyclerView.Adapter<GameAdapter.ComicViewHolder>() {
+    private var listGames = ArrayList<Game>()
+
     class ComicViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivCoverItem: ImageView = view.findViewById(R.id.ivCoverItem)
         val tvTitleItem: TextView = view.findViewById(R.id.tvTitleItem)
-
-        //val tvDetail: TextView = view.findViewById(R.id.tvDetail)
         val tvYearItem: TextView = view.findViewById(R.id.tvYearItem)
-        //val tvDescription: TextView = view.findViewById(R.id.tvDescription)
     }
-
-    /*private lateinit var title: String
-    private lateinit var description: String
-    private lateinit var coverGame: String*/
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.game_item, parent, false)
@@ -43,60 +38,33 @@ class GameAdapter(
 
     override fun getItemCount(): Int = listGames.size
 
-    /*fun addComics(results: ArrayList<Results>) {
-        listGames.addAll(results)
+    fun addGames(games: ArrayList<Game>) {
+        listGames.clear()
+        listGames.addAll(games)
         notifyDataSetChanged()
-    }*/
+    }
 
     override fun onBindViewHolder(holder: ComicViewHolder, position: Int) {
         val games = listGames[position]
 
+        inflate.pbGame.visibility = GONE
         holder.ivCoverItem.setImageResource(R.drawable.splash_firebase)
+        holder.tvTitleItem.text = games.title
         holder.tvYearItem.text = games.year
 
         holder.itemView.setOnClickListener {
-            context.findNavController().navigate(R.id.action_gameFragment_to_detailFragment)
-        }
-        /*try {
-            val hashCoordinates: IntArray = findHash(comics.title)
-            number = StringBuilder(comics.title).substring(hashCoordinates[0], hashCoordinates[1])
-        } catch (ignored: Exception) {
+            val bundle = bundleOf(
+                "cover" to games.cover,
+                "title" to games.title,
+                "year" to games.year,
+                "description" to games.description
+            )
+            context.findNavController().navigate(R.id.action_gameFragment_to_detailFragment, bundle)
         }
 
-        Glide.with(context)
+        /*Glide.with(context)
             .load("${comics.thumbnail.path}.${comics.thumbnail.extension}")
-            .into(holder.ivCover)
-
-        holder.tvNumber.text = number
-
-        holder.itemView.setOnClickListener {
-            title = when (comics.title) {
-                null -> "No title available"
-                else -> comics.title
-            }
-
-            description = when (comics.description) {
-                null -> "No description available"
-                else -> comics.description
-            }
-
-            coverGame = try {
-                "${comics.images[0].path}.${comics.images[0].extension}"
-            } catch (ignored: Exception) {
-                ""
-            }
-
-            myViewModel.addParameters(
-                arrayListOf(
-                    title,
-                    description.replace("<br>", ""),
-                    SimpleDateFormat("MMMM dd, yyyy", Locale.ENGLISH).format(date),
-                    NumberFormat.getCurrencyInstance(Locale.US).format(price),
-                    pageCount.toString(),
-                    thumbnail,
-                    coverGame
-                )
-            )*/
+            .into(holder.ivCover)*/
 
         myViewModel.updateScrollCoordinates(
             intArrayOf(
@@ -104,6 +72,5 @@ class GameAdapter(
                 inflate.rvGame.scrollY
             )
         )
-        //}
     }
 }

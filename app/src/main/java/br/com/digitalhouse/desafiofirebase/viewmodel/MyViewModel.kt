@@ -1,9 +1,11 @@
 package br.com.digitalhouse.desafiofirebase.viewmodel
 
+import android.view.View.VISIBLE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.digitalhouse.desafiofirebase.databinding.FragmentGameBinding
 import br.com.digitalhouse.desafiofirebase.model.Game
 import br.com.digitalhouse.desafiofirebase.services.RepositoryImplementation
 import com.google.firebase.database.DataSnapshot
@@ -32,7 +34,8 @@ class MyViewModel() : ViewModel() {
         }
     }
 
-    fun getGamesTask() {
+    fun getGamesTask(binding: FragmentGameBinding) {
+        binding.pbGame.visibility = VISIBLE
         val values = arrayListOf<Game>()
         viewModelScope.launch {
             repositoryImplementation.getGames()

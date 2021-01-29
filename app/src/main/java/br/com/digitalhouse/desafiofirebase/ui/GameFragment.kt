@@ -3,26 +3,20 @@ package br.com.digitalhouse.desafiofirebase.ui
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import br.com.digitalhouse.desafiofirebase.R
 import br.com.digitalhouse.desafiofirebase.databinding.FragmentGameBinding
-import br.com.digitalhouse.desafiofirebase.model.Game
 import br.com.digitalhouse.desafiofirebase.viewmodel.MyViewModel
 
 class GameFragment : Fragment() {
     private val myViewModel: MyViewModel by navGraphViewModels(R.id.navigation2)
     private lateinit var adapter: GameAdapter
-    private var listGames = arrayListOf<Game>()
     private lateinit var gridLayoutManager: GridLayoutManager
-    private var offset = 0
     private var _binding: FragmentGameBinding? = null
 
     // This property is only valid between onCreateView and
@@ -38,16 +32,16 @@ class GameFragment : Fragment() {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        myViewModel.getGamesTask()
+        adapter = GameAdapter(this, myViewModel, binding)
+
+        gridLayoutManager = GridLayoutManager(view.context, 2)
+        binding.rvGame.adapter = adapter
+        binding.rvGame.layoutManager = gridLayoutManager
+
+        myViewModel.getGamesTask(binding)
 
         myViewModel.allGames.observe(viewLifecycleOwner) {
-            listGames.addAll(it)
-
-            adapter = GameAdapter(this, myViewModel, binding, listGames)
-
-            gridLayoutManager = GridLayoutManager(view.context, 2)
-            binding.rvGame.adapter = adapter
-            binding.rvGame.layoutManager = gridLayoutManager
+            adapter.addGames(it)
         }
 
         binding.fabAddGame.setOnClickListener {
@@ -66,26 +60,7 @@ class GameFragment : Fragment() {
             binding.rvGame.scrollTo(it[0], it[1])
         }
 
-        setScroller()
-
         return view
-    }
-
-    private fun setScroller() {
-        binding.rvGame.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if (dy > 0) {
-                    val lItem = gridLayoutManager.itemCount
-                    val vItem =
-                        gridLayoutManager.findFirstVisibleItemPosition()
-                    val itens = adapter.itemCount
-                    if (lItem + vItem >= itens) {
-                        offset += 1
-                    }
-                }
-            }
-        })
     }
 
     override fun onDestroyView() {
