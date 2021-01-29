@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -27,7 +28,8 @@ class EditFragment : Fragment() {
     ): View? {
         _binding = FragmentEditBinding.inflate(inflater, container, false)
         val view = binding.root
-
+        view.setBackgroundResource(R.drawable.splash_firebase)
+        //requireActivity().window.setBackgroundDrawable(ResourcesCompat.getDrawable(resources, R.drawable.splash_firebase, null))
         binding.btSaveGame.setOnClickListener {
             findNavController().popBackStack()
         }
