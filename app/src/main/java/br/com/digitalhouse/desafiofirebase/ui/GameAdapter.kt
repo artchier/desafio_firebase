@@ -1,10 +1,12 @@
 package br.com.digitalhouse.desafiofirebase.ui
 
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
@@ -13,6 +15,11 @@ import br.com.digitalhouse.desafiofirebase.R
 import br.com.digitalhouse.desafiofirebase.databinding.FragmentGameBinding
 import br.com.digitalhouse.desafiofirebase.model.Game
 import br.com.digitalhouse.desafiofirebase.viewmodel.MyViewModel
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import java.util.*
 
 class GameAdapter(
@@ -25,6 +32,7 @@ class GameAdapter(
     private var listGames = ArrayList<Game>()
 
     class ComicViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val pbItem: ProgressBar = view.findViewById(R.id.pbItem)
         val ivCoverItem: ImageView = view.findViewById(R.id.ivCoverItem)
         val tvTitleItem: TextView = view.findViewById(R.id.tvTitleItem)
         val tvYearItem: TextView = view.findViewById(R.id.tvYearItem)
@@ -47,8 +55,28 @@ class GameAdapter(
     override fun onBindViewHolder(holder: ComicViewHolder, position: Int) {
         val games = listGames[position]
 
-        inflate.pbGame.visibility = GONE
-        holder.ivCoverItem.setImageResource(R.drawable.splash_firebase)
+        Glide.with(context).load(games.cover).listener(object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                holder.pbItem.visibility = GONE
+                return false
+            }
+
+        }).into(holder.ivCoverItem)
         holder.tvTitleItem.text = games.title
         holder.tvYearItem.text = games.year
 
@@ -61,10 +89,6 @@ class GameAdapter(
             )
             context.findNavController().navigate(R.id.action_gameFragment_to_detailFragment, bundle)
         }
-
-        /*Glide.with(context)
-            .load("${comics.thumbnail.path}.${comics.thumbnail.extension}")
-            .into(holder.ivCover)*/
 
         myViewModel.updateScrollCoordinates(
             intArrayOf(

@@ -100,6 +100,7 @@ A produção do primeiro jogo foi baseada na ideia original que Ed Boon e John T
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabEditGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"

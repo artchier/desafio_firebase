@@ -38,7 +38,7 @@ class GameFragment : Fragment() {
         binding.rvGame.adapter = adapter
         binding.rvGame.layoutManager = gridLayoutManager
 
-        myViewModel.getGamesTask(binding)
+        myViewModel.getGamesTask()
 
         myViewModel.allGames.observe(viewLifecycleOwner) {
             adapter.addGames(it)
@@ -56,7 +56,7 @@ class GameFragment : Fragment() {
                 }
             })
 
-        myViewModel._scrollCoordinates.observe(viewLifecycleOwner) {
+        myViewModel.scrollCoordinates.observe(viewLifecycleOwner) {
             binding.rvGame.scrollTo(it[0], it[1])
         }
 

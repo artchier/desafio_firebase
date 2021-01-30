@@ -1,11 +1,9 @@
 package br.com.digitalhouse.desafiofirebase.viewmodel
 
-import android.view.View.VISIBLE
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.digitalhouse.desafiofirebase.databinding.FragmentGameBinding
 import br.com.digitalhouse.desafiofirebase.model.Game
 import br.com.digitalhouse.desafiofirebase.services.RepositoryImplementation
 import com.google.firebase.database.DataSnapshot
@@ -13,19 +11,25 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 
-class MyViewModel() : ViewModel() {
+class MyViewModel : ViewModel() {
     private val repositoryImplementation = RepositoryImplementation()
+
+    private var _lastGame = MutableLiveData<Game>()
+    val lastGame: LiveData<Game>
+        get() = _lastGame
 
     private var _allGames = MutableLiveData<ArrayList<Game>>()
     val allGames: LiveData<ArrayList<Game>>
         get() = _allGames
 
-    var _scrollCoordinates = MutableLiveData<IntArray>()
-    private val scrollCoordinates: MutableLiveData<IntArray>
+    private var _lastCover = MutableLiveData<String>()
+
+    private var _scrollCoordinates = MutableLiveData<IntArray>()
+    val scrollCoordinates: LiveData<IntArray>
         get() = _scrollCoordinates
 
     fun updateScrollCoordinates(coordinates: IntArray) {
-        scrollCoordinates.value = coordinates
+        _scrollCoordinates.value = coordinates
     }
 
     fun connectDBTask() {
@@ -34,8 +38,13 @@ class MyViewModel() : ViewModel() {
         }
     }
 
-    fun getGamesTask(binding: FragmentGameBinding) {
-        binding.pbGame.visibility = VISIBLE
+    fun getStorageReferenceTask() {
+        viewModelScope.launch {
+            _lastCover.value = repositoryImplementation.getStorageReference().toString()
+        }
+    }
+
+    fun getGamesTask() {
         val values = arrayListOf<Game>()
         viewModelScope.launch {
             repositoryImplementation.getGames()
@@ -64,15 +73,21 @@ class MyViewModel() : ViewModel() {
         }
     }
 
+    fun getLastGame(game: Game) {
+        viewModelScope.launch {
+            _lastGame.value = game
+        }
+    }
+
     fun createGameTask(game: Game, index: String) {
         viewModelScope.launch {
             repositoryImplementation.createGame(game, index)
         }
     }
 
-    fun updateGameTask(game: Game, index: String) {
+    fun removeGameTask(index: String) {
         viewModelScope.launch {
-            repositoryImplementation.myRef.child(index).setValue(game)
+            repositoryImplementation.removeGame(index)
         }
     }
 }
