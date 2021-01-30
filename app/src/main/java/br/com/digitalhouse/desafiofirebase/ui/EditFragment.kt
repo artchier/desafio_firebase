@@ -79,7 +79,7 @@ class EditFragment : Fragment() {
                 binding.description.text.toString()
             )
 
-            if (lastTitle == binding.name.text.toString()) {
+            if (lastTitle == binding.name.text.toString() && lastTitle != "") {
                 myViewModel.createGameTask(newGame, binding.name.text.toString())
             } else {
                 myViewModel.removeGameTask(lastTitle)
